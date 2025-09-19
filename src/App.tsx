@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { fhirR4 } from "@smile-cdr/fhirts";
+import { oauth2 } from "fhirclient";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [patient, setPatient] = useState<fhirR4.Patient | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    oauth2
+      .ready()
+      .then((client) => {
+        client.request("Patient").then((data) => {
+          // Wrap the raw data in a strongly typed Patient class
+          setPatient(data);
+        });
+      })
+      .catch(() => {
+        setError(
+          "No SMART launch context found. Please launch the app from your EHR."
+        );
+      });
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <h1>IPS SMART Viewer</h1>
+      {patient ? (
+        <div>
+          <h2>Patient Information</h2>
+          <p>
+            Name: {patient.name?.[0]?.given?.join(" ")}{" "}
+            {patient.name?.[0]?.family}
+          </p>
+          <p>Gender: {patient.gender}</p>
+          <p>Date of Birth: {patient.birthDate}</p>
+        </div>
+      ) : error ? (
+        <div style={{ color: "red" }}>{error}</div>
+      ) : (
+        <div>Loading...</div>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
