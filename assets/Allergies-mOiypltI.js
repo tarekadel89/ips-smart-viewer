@@ -1,0 +1,1 @@
+import{j as e,C as i,a as r}from"./index-kTTI0PTL.js";function d(){return e.jsx(i,{children:e.jsxs(r,{children:[e.jsx("div",{children:"Allergies Component"}),e.jsx("div",{children:"TODO"}),e.jsx("div",{children:"TODO"}),e.jsx("div",{children:"TODO"}),e.jsx("div",{children:"TODO"})]})})}export{d as default};
