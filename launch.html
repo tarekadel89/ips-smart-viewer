@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SMART Launch</title>
+    <script src="https://cdn.jsdelivr.net/npm/fhirclient/build/fhir-client.js"></script>
+  </head>
+  <body>
+    <h1>Launching IPS SMART Viewer...</h1>
+    <script>
+      // Initiate the SMART launch sequence
+      FHIR.oauth2.authorize({
+        clientId: "83f6e8fb-1255-48b9-8b1b-df70e7f5d1c4",
+        scope: "patient/Patient.read launch online_access openid profile",
+        redirectUri: "https://tarekadel89.github.io/ips-smart-viewer",
+      });
+    </script>
+  </body>
+</html>
