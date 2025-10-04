@@ -20,7 +20,9 @@ import type { PatientSummary } from "../definitions/PatientSummary";
 export default function Conditions(props: {
   patientId?: string;
   conditions: fhirR4.Condition[];
-  setPatientSummary: React.Dispatch<React.SetStateAction<PatientSummary>>;
+  setPatientSummary: React.Dispatch<
+    React.SetStateAction<PatientSummary | null>
+  >;
 }) {
   const MOCK_PATIENT_ID = "patient-example-female"; // Set this to your mock patient's id
 

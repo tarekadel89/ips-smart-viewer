@@ -33,7 +33,7 @@ interface AuthorSummaryPanelProps {
   onClose: () => void;
 }
 
-export function AuthorSummaryPanel({
+export default function AuthorSummaryPanel({
   patientSummary,
   onClose,
 }: AuthorSummaryPanelProps) {

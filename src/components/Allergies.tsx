@@ -30,7 +30,9 @@ import {
 export default function Allergies(props: {
   patientId?: string;
   allergies: fhirR4.AllergyIntolerance[];
-  setPatientSummary: React.Dispatch<React.SetStateAction<PatientSummary>>;
+  setPatientSummary: React.Dispatch<
+    React.SetStateAction<PatientSummary | null>
+  >;
 }) {
   const MOCK_PATIENT_ID = "patient-example-female"; // Set this to your mock patient's id
 
@@ -176,8 +178,8 @@ export default function Allergies(props: {
     allergyToAdd.id = allergyToAdd.id || crypto.randomUUID(); // Ensure it has an ID for rendering
     // Update local state to include the new allergy
     props.setPatientSummary((prev) => ({
-      ...prev,
-      allergies: [...(prev.allergies ?? []), allergyToAdd],
+      ...(prev ?? { allergies: [] }),
+      allergies: [...(prev?.allergies ?? []), allergyToAdd],
     }));
     setIsAddFormOpen(false);
     try {

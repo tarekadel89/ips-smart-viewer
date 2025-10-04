@@ -7,7 +7,9 @@ export default function PatientContext({
   setPatientSummary,
   setError,
 }: {
-  setPatientSummary: React.Dispatch<React.SetStateAction<PatientSummary>>;
+  setPatientSummary: React.Dispatch<
+    React.SetStateAction<PatientSummary | null>
+  >;
   setError: (error: string | null) => void;
 }) {
   useEffect(() => {
@@ -35,9 +37,9 @@ export default function PatientContext({
           });
       })
       .catch(() => {
-        setError(
-          "No SMART launch context found. Please launch the app from your EHR."
-        );
+        // setError(
+        //   "No SMART launch context found. Please launch the app from your EHR."
+        // );
         setPatientSummary((prev) => ({
           ...(prev ?? {}),
           patient: mockPatient,
