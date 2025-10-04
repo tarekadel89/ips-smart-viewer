@@ -1,0 +1,1 @@
+function a(e){if(!e)return"";const t=new Date(e);if(isNaN(t.getTime()))return"";const n=t.getDate().toString().padStart(2,"0"),o=t.toLocaleString("en-US",{month:"short"}),r=t.getFullYear();return`${n}-${o}-${r}`}export{a as f};
